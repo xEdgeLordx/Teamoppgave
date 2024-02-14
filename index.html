@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sofus</title>
+    <style>
+        html{
+            background-color: #121212;
+        }
+        .app{
+            padding-top: 100px;
+            display: flex;
+            justify-content: center;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+
+        }
+        .cat{
+            border-radius: 25px;
+            max-width: 500px;
+            border: solid brown 10px;
+            margin: 20px;
+        }
+        .text{
+            padding-left: 20px;
+            color: white;
+            font-size: 50px;
+            font-family: sans-serif;
+        }
+        .Startbutton{
+            background-color: brown;
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 100px;
+        }
+        .Startbutton:hover{
+            background-color: rgb(95, 30, 157);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 100px;}
+            .hungerStyle{
+                background-color: green;
+            }
+            .gameButton{
+                background-color: brown;
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 50px;
+            margin: 10px;
+
+            }
+            .Needstext{
+                padding-left: 20px;
+            color: white;
+            font-size: 50px;
+            font-family: sans-serif;
+            background-color:brown;
+                border-radius: 15px;
+
+            }
+            .gameButton:hover{
+                background-color: rgb(92, 23, 23);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 50px;
+            margin: 10px;
+            }
+            .buttonBox{
+                display: grid;
+                justify-content: space-around;
+            }
+            .talkBox{
+                padding-top: 30px;
+                padding-left: 60px;
+            }
+            .talk{
+                background-color: white;
+                width: 600px;
+                height: 300px;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                padding-left: 10px;
+                font-size: 30px;
+                padding-top: 5px;
+            }
+            .sofusSays{
+                font-size: 40px;
+                background-color: gray;
+                color: white;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                padding-left: 10px;
+                padding-bottom: 5px;
+            }
+            .filler{
+                color: #121212;
+                user-select: none;
+            }
+            .gameOverscreenText{
+                display: flex;
+                justify-content: center;
+                background-color: white;
+                font-size: 30px;
+                height: 200px;
+                border-radius: 15px;
+                border: solid brown 10px;
+
+            }
+            .gameOverText{
+                font-size: 30px;
+            }
+            
+    </style>
+</head>
+<body>
+    <div class = "app" id="app"><button class="Startbutton" onclick="startGameNow()">Start</button>
+    </div>
+    <script>
+        let hunger = 0;
+        let bladder = 0;
+        let outside = 0;
+        let play = 0;
+        let app = document.getElementById('app');
+       
+        
+        
+        function startGameNow(){
+            StartHungertimer()
+            updateView()
+        }
+        
+        function updateView(){
+            app.innerHTML = /*html*/`
+            <div class = container>
+            <div class = "buttonBox">
+                <button class = "gameButton" onclick = "feed()">Feed</button>
+                <button class = "gameButton" onclick= "takeSand()">Clean litterbox</button>
+                <button class = "gameButton" onclick = "playWithCat()">Play</button>
+                <button class = "gameButton" onclick = "getTheCatOut()">Get OUT!!!</button>
+                
+                </div>
+                
+                <div><img  class = cat src = "https://cdn.discordapp.com/attachments/1196702380792741888/1206951531992190987/mood.jpg?ex=65dde035&is=65cb6b35&hm=7e482c617201ad010478d6790b4d600c4d6046fcadcec3ff7420d6d224e6b06d&">
+                    </div>
+                    
+                    <div class = "needsBox">
+                        <div class = "Needstext">Needs:</div>
+                        <br>
+                        <div class = "text" id = "hunger">Hunger:  0</div>
+                        <br>
+                        <div class = "text" id = "bladder">Bladder:  0</div>
+                        <div class = "filler">00000000000000000000000000000000000</div>
+                        <div class = "text" id = "play">Play:  0</div>
+                        <br>
+                        <div class = "text" id="howMuchEnergy">Outside:  0</div>
+                        <br>
+                        <div class = "text" id = "catCrazynes"></div>
+                        
+                        </div>
+                        
+                        </div>
+                        <div class = "talkBox">
+                            <div class = "sofusSays">Sofus Says:</div>
+                            <div id = "Talk" class = talk></div></div>
+                
+                
+                
+                
+            `
+        }
+        function StartHungertimer(){
+            setInterval(hungerTimer, 700);
+            setInterval(talkTimer, 1450);
+            setInterval(startTimer, 660);
+            setInterval(energyLoading, 900);
+            setInterval(bladderTimer, 800);
+            
+        }
+        function hungerTimer(){
+            hunger++;
+            document.getElementById('hunger').innerHTML = "Hunger:  " + hunger;
+            if(hunger > 99 || play > 99 || bladder > 99 || outside > 99){
+                gameover()
+            } else if(play > 90){
+                document.getElementById('Talk').innerHTML = "You need to play with me now, or I will hurt you!"
+            } else if(bladder > 85){
+                document.getElementById('Talk').innerHTML = "Peed on your pillow >:3c"
+            } else if(outside > 75){
+                document.getElementById('Talk').innerHTML = "LET ME OUT!!!"}
+             else if(hunger > 70){
+                document.getElementById('Talk').innerHTML = "Im starving, I need food NOWW!! or i will leave."
+            } else if(bladder > 65){
+                document.getElementById('Talk').innerHTML = "Cleanse my toilet at once, slave!"
+            } else if(play > 50){
+                document.getElementById('Talk').innerHTML = "Can you play with me, please?"
+            } else if(outside > 40){
+                document.getElementById('Talk').innerHTML = "I want to go out"}
+             else if(hunger > 30){
+                document.getElementById('Talk').innerHTML = "Im hungry"}
+            
+             
+            
+            
+            
+        }
+        function talkTimer(){
+            let RandomTalk = Math.floor(Math.random() * 20)
+            if(RandomTalk == 1 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "Meow";
+            } else if(RandomTalk == 2 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "I want to eat your nose if you die";
+            } else if(RandomTalk == 3 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "Are you really trying to tell me that a shrimp, a lovly shrimp, fried this rice?";
+            } else if(RandomTalk == 4 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "Eyy im a fucking cat, hehe im walking here.";
+            } else if(RandomTalk == 5 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "Dæven døtte sykkelstøtte";
+            } else if(RandomTalk == 6 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "Cat, I'm a kitty-cat";
+            } else if(RandomTalk == 7 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "Hisses at you xD";
+            } else if(RandomTalk == 8 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "OwO what's this?";
+            } else if(RandomTalk == 9 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "Hell is forever, heaven is a lie";
+            } else if(RandomTalk == 10 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "i'm gonna eat you!!";
+            } else if(RandomTalk == 11 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "I am so cute, hihihihi";
+            } else if(RandomTalk == 12 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "Everybody want's to be a cat.";
+            } else if(RandomTalk == 13 && hunger < 50 && bladder < 50 && outside < 50 && play < 50){
+                document.getElementById('Talk').innerHTML = "Rawr";
+            } else{
+                document.getElementById('Talk').innerHTML = "";
+            }
+        }
+
+        function feed(){
+            hunger = -1;
+           let Nom = new Audio();
+            Nom.src = "roblox-eating-sound-effect-nom-nom-nom.mp3"
+            Nom.play()
+            document.getElementById('Talk').innerHTML = "nom nom nom"
+        }
+        
+        function gameover(){
+            app.innerHTML = /*html*/`
+            <div class = "gameOverscreen">
+                <img src = "https://www.picng.com/upload/game_over/png_game_over_53087.png">
+                <div id = "GameoverText" class = "gameOverscreenText"></div>
+                <button class = "gameButton" onclick = "Retry()">Retry?</button>
+            </div>
+                
+            
+            `
+            if(hunger > 99){
+                document.getElementById('GameoverText').innerHTML = /*html*/`
+                <div>You forgot to feed Sofus. He has left you<br>to find a better owner.</div>
+                `
+            } else if(play > 99){
+                document.getElementById('GameoverText').innerHTML = /*html*/`
+                <div>You forgot to play with Sofus. He has left you<br>to find a better owner.</div>
+                `
+
+            } else if(bladder > 99){
+                document.getElementById('GameoverText').innerHTML = /*html*/`
+                <div>You forgot to let Sofus use the toilet. He has left you<br>to find a better owner.</div>
+                `
+            } else if(outside > 99){
+                document.getElementById('GameoverText').innerHTML = /*html*/`
+                <div>You forgot to let Sofus outside. He has left you<br>to find a better owner.</div>
+                `
+            }
+        }
+        function Retry(){
+            location.reload()
+        }
+
+        let timer = document.getElementById('timer');
+
+
+function startTimer(){
+    play ++;
+    document.getElementById('play').innerHTML = "Play:  " + play;
+playTime()
+}
+
+function playWithCat(){
+play = -1;
+let laugh = new Audio()
+laugh.src = "mk64_wario03.mp3"
+laugh.play()
+}
+ function energyLoading(){
+    outside++;
+    document.getElementById('howMuchEnergy').innerHTML = "Outside: " + outside;
+    
+    sendTheCatOut();
+}
+
+function getTheCatOut(){    
+  outside = -1;
+  let meaw = new Audio()
+  meaw.src = 'meow-1.mp3'
+  meaw.play()
+}
+    
+function bladderTimer(){
+    bladder++;
+    document.getElementById('bladder').innerHTML = "Bladder:  " + bladder;
+    cleanse()
+}
+
+
+function takeSand(){
+    bladder = -1;
+    let uwu = new Audio()
+    uwu.src = "uwu.mp3"
+    uwu.play()
+}
+
+
+    </script>
+</body>
+</html>
